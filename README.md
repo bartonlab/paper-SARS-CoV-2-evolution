@@ -4,7 +4,7 @@
 This repository contains and data and scripts for reproducing the results accompanying the manuscript  
 
 ### Chronic infections can generate SARS-CoV-2-like bursts of viral evolution without epistasis
-Edwin Rodr\'iguez-Horta<sup>1,2</sup>, John Strahan<sup>3</sup>, Aaron R. Dinner<sup>3</sup> and John P. Barton<sup>1,#</sup>
+Edwin Rodríguez-Horta<sup>1,2</sup>, John Strahan<sup>3</sup>, Aaron R. Dinner<sup>3</sup> and John P. Barton<sup>1,#</sup>
 
 <sup>1</sup> Department of Computational and Systems Biology, University of Pittsburgh School of Medicine  
 <sup>2</sup> Group of Complex Systems and Statistical Physics, Department of Theoretical Physics, Physics Faculty, University of Havana.  
