@@ -3,7 +3,7 @@
 
 This repository contains and data and scripts for reproducing the results accompanying the manuscript  
 
-### Title of paper
+### Chronic infections can generate SARS-CoV-2-like bursts of viral evolution without epistasis
 Author One<sup>1</sup>, Author Two<sup>2</sup>, and John P. Barton<sup>1,2,#</sup>
 
 <sup>1</sup> Department of Physics and Astronomy, University of California, Riverside  
