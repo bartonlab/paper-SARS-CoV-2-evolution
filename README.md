@@ -30,7 +30,7 @@ To sync the above folders on GitHub, placeholder files have been placed in the `
 
 ### Software dependencies
 
-Here's an example statement about the need for external software to execute any part of the code: Parts of the analysis are implemented in C++11 and the [GNU Scientific Library](https://www.gnu.org/software/gsl/).
+The code for generating and processing data is written in Julia (https://julialang.org/) and requires version 1.10 or later. Figures were created using Python 3.
 
 # License
 
