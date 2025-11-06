@@ -16,14 +16,95 @@ The preprint is available at __LINK PENDING__.
 
 
 # Contents
-
-This repository contains code for evolutionary model simulations and a method to detect mutation bursts. The code is implemented in Julia and can be found in the `src/` directory. A demonstration of the code usage is available in `notebooks/Run_Test.ipynb`. 
-
-Simulation results for each figure in the paper are located in the `data/` directory. Additionally, the `notebooks/` folder contains a collection of notebooks used to generate the figures for the paper.
+- `src/` — Julia scripts implementing the evolutionary model and analysis functions  
+- `notebooks/Run_Test.ipynb` — Demonstration notebook for running the simulation and generating example plots  
+- `data/` — Simulation results and input files for reproducing figures in the paper  
 
 ### Software dependencies
 
-The code for generating and processing data is written in Julia (https://julialang.org/) and requires version 1.10 or later. Figures were created using Python 3.
+- **Julia 1.10 or higher** (https://julialang.org/)  
+- **IJulia** to run the notebooks  
+- **Python 3** for figures
+  
+# Installation and Environment Setup
+
+1. Clone this repository and navigate into it:
+```bash
+git clone https://github.com/YourUsername/YourRepository.git
+cd YourRepository
+```
+
+2. Start a Julia session in the project folder. You can either:
+```bash
+julia --project=.
+```
+or start Julia normally and activate the environment:
+```julia
+using Pkg
+Pkg.activate(".")
+Pkg.instantiate()
+```
+This will download all dependencies specified in `Manifest.toml`.
+
+3. To run the notebooks:
+```julia
+using IJulia
+IJulia.notebook()
+```
+This opens Jupyter in your browser. Navigate to `notebooks/` and open `Run_Test.ipynb` to run an example simulation.
+
+# Usage
+
+This repository provides **two main functions**:
+
+1. **`evolve_pop_EpiModel(case0::individual, tEnd::Int64, N::Int64, params::Param; chronical_cases=true)`**  
+   Simulates population evolution over time in an epidemiological model that combines within-host replication and between-host transmission, accounting for chronic cases.
+   
+   - **Arguments:**  
+     - `case0::individual`: initial infected individual  
+     - `tEnd::Int64`: duration of simulation  
+     - `N::Int64`: intra-host population size  
+     - `params::Param`: model parameters (mutation rates, selection coefficients, generation times, probability of chronic infection)  
+     - `chronical_cases::Bool=true`: include chronic infections (default)  
+   - **Returns:** `(pop_final, num_sick, rare_events, chronical_times)`  
+     - `pop_final`: population history over time  
+     - `num_sick`: infected individuals per time step  
+     - `rare_events`: chronic cases per time step  
+     - `chronical_times`: times of chronic infections
+
+3. **`av_number_of_mut_variant(pop_final::Vector{Vector{individual}})`**  
+   Computes the **average number of mutations per variant** from a population returned by `evolve_pop_EpiModel`. Returns an array of mutation fractions per variant over time.
+
+**Other useful functions:**
+- `slope_change_score(fraction_mut_variant_res::Array)` – detects slope changes in mutation accumulation  
+- `init_individual(...)` – initializes the first infected individual with given parameters  
+- `savitzky_golay(y::Array, window::Int, order::Int)` – smooths time series data  
+
+---
+
+### Example workflow
+```julia
+# Load selection coefficients and fit distributions
+selection_coeff = readdlm("data/selection_coeff_SC2.txt")[:]
+bf_effect_dist = fit(LogNormal, selection_coeff[selection_coeff .> 0.02])
+nt_effect_dist = fit(Normal, selection_coeff[-0.02 .< selection_coeff .< 0.02])
+
+# Define parameters
+parameters = Param(1e-3, 1e-4, bf_effect_dist, nt_effect_dist, 2.0, 4.9, 0.5, 1.6e-4)
+
+# Initialize first individual
+case0 = init_individual(1, 0.0, parameters.t_s, 1000, 0)
+
+# Simulate population
+pop_final, num_sick, rare_events, chronical_times = evolve_pop_EpiModel(case0, 1000, 1000, parameters, chronical_cases=true)
+
+# Compute mutation fractions and slopes
+fraction_mut_variant_res = av_number_of_mut_variant(pop_final)
+slope_vs_t, score = slope_change_score(fraction_mut_variant_res[1:end])
+```
+
+This workflow generates the population dynamics, tracks chronic infections, and allows further analysis or plotting.
+
 
 
 # License
