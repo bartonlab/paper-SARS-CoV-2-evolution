@@ -98,12 +98,12 @@ case0 = init_individual(1, 0.0, parameters.t_s, 1000, 0)
 # Simulate population
 pop_final, num_sick, rare_events, chronical_times = evolve_pop_EpiModel(case0, 1000, 1000, parameters, chronical_cases=true)
 
-# Compute mutation fractions and slopes
+# Compute mutation fractions and slope
 fraction_mut_variant_res = av_number_of_mut_variant(pop_final)
 slope_vs_t, score = slope_change_score(fraction_mut_variant_res[1:end])
 ```
 
-This workflow generates the population dynamics, tracks chronic infections, and allows further analysis or plotting.
+This workflow generates the population dynamics.
 
 
 
