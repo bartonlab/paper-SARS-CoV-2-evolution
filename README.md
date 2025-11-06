@@ -26,7 +26,7 @@ The preprint is available at __LINK PENDING__.
 - **IJulia** to run the notebooks  
 - **Python 3** for figures
   
-# Installation and Environment Setup
+# Installation and environment setup
 
 1. Clone this repository and navigate into it:
 ```bash
