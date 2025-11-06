@@ -30,8 +30,8 @@ The preprint is available at __LINK PENDING__.
 
 1. Clone this repository and navigate into it:
 ```bash
-git clone https://github.com/YourUsername/YourRepository.git
-cd YourRepository
+git clone https://github.com/bartonlab/paper-SARS-CoV-2-evolution.git
+cd paper-SARS-CoV-2-evolution
 ```
 
 2. Start a Julia session in the project folder. You can either:
